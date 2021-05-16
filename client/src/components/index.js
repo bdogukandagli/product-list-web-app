@@ -8,3 +8,4 @@ export { default as TagGroup } from './tagGroup';
 export { default as Tag } from './tag';
 export { default as ProductCard } from './productCard';
 export { default as RadioCard } from './radioCard';
+export { default as Pagination } from './pagination';

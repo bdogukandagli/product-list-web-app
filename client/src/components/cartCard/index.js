@@ -1,36 +1,43 @@
 import React from 'react';
 import { Box, Text, CartItem } from '../index';
+import { quantityActiontypes } from '../../utils/constant';
 
-const CartCard = ({
-  cartItems = [
-    {
-      name: 'Name 1',
-      price: '26,99€',
-      quantity: 2,
-    },
-    {
-      name: 'Name 2',
-      price: '99,99€',
-      quantity: 7,
-    },
-    {
-      name: 'Name 3',
-      price: '19,99€',
-      quantity: 1,
-    },
-  ],
-  totalPrice = '146.97€',
-  incrementButtonClick,
-  decrementButtonClick,
-}) => {
+const CartCard = ({ cartItems, setCartItems, totalPrice }) => {
+  const handleQuantity = (product, type) => {
+    let items = [...cartItems];
+    let item = { ...cartItems.filter((cartItem) => cartItem.name == product.name)[0] };
+
+    if (type == quantityActiontypes.increment) {
+      item.quantity = item.quantity + 1;
+      items.filter((cartItem) => cartItem.name == product.name)[0].quantity =
+        item.quantity;
+      setCartItems(items);
+    }
+
+    if (type == quantityActiontypes.decrement) {
+      if (product.quantity == 1) {
+        setCartItems(cartItems.filter((t) => t.name != product.name));
+      } else {
+        item.quantity = item.quantity - 1;
+        items.filter((cartItem) => cartItem.name == product.name)[0].quantity =
+          item.quantity;
+        setCartItems(items);
+      }
+    }
+  };
+
   return (
     <Box bg="secondary" width={1} p="8px" borderRadius="2px">
       <Box bg="white" width={1} borderRadius="2px" p="26px 16px 16px 16px">
-        {cartItems.map((item, index) => {
+        {cartItems?.map((item, index) => {
           return (
             <CartItem
-              incrementButtonClick={incrementButtonClick}
-              decrementButtonClick={decrementButtonClick}
+              incrementButtonClick={() =>
+                handleQuantity(item, quantityActiontypes.increment)
+              }
+              decrementButtonClick={() =>
+                handleQuantity(item, quantityActiontypes.decrement)
+              }
               key={index}
               cartItem={item}
             />

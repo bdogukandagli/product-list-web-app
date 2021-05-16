@@ -15,7 +15,7 @@ const StyledRadioButton = styled.input`
   }
 `;
 
-const RadioCard = ({ selectedSort = 1, cardTitle, options = [1, 2, 3, 4] }) => {
+const RadioCard = ({ selectedFilter, setSelectedFilter, cardTitle, options }) => {
   return (
     <Box>
       <Box textAlign="left">
@@ -24,6 +24,7 @@ const RadioCard = ({ selectedSort = 1, cardTitle, options = [1, 2, 3, 4] }) => {
         </Text>
       </Box>
       <Box
+        mt="12px"
         pt={{ _: '', lg: '6px' }}
         pb="24px"
         bg="white"
@@ -49,13 +50,18 @@ const RadioCard = ({ selectedSort = 1, cardTitle, options = [1, 2, 3, 4] }) => {
                 width={1}
                 mt="15px"
                 key={index}
+                data-testid="radio-wrapper"
+                onClick={() => setSelectedFilter(option.value)}
               >
                 <Box mr="8px">
-                  <StyledRadioButton checked={option == selectedSort} type="radio" />
+                  <StyledRadioButton
+                    checked={option.value == selectedFilter}
+                    type="radio"
+                  />
                 </Box>
                 <Box>
                   <Text variant="lightBody" color="dark">
-                    {option}
+                    {option.name}
                   </Text>
                 </Box>
               </Box>

@@ -4,13 +4,37 @@ import userEvent from '@testing-library/user-event';
 import { TagGroup } from '../index';
 
 test('render component without crash', () => {
-  render(<TagGroup tagList={['Tag1', 'Tag2', 'Tag3']} />);
+  render(<TagGroup selectedTags={['Tag1']} tagList={['Tag1', 'Tag2', 'Tag3']} />);
 });
 
-test('onClick functionality', () => {
+test('onClick functionality for deactive', () => {
   const onClick = jest.fn();
 
-  render(<TagGroup tagList={['Tag1', 'Tag2', 'Tag3']} onClick={onClick} />);
+  render(
+    <TagGroup
+      selectedTags={['Tag1']}
+      tagList={['Tag1', 'Tag2', 'Tag3']}
+      setSelectedTags={onClick}
+    />
+  );
+
+  const tagButton = screen.getByText('Tag1');
+
+  userEvent.click(tagButton);
+
+  expect(onClick).toBeCalledTimes(1);
+});
+
+test('onClick functionality for active', () => {
+  const onClick = jest.fn();
+
+  render(
+    <TagGroup
+      selectedTags={['Tag2']}
+      tagList={['Tag1', 'Tag2', 'Tag3']}
+      setSelectedTags={onClick}
+    />
+  );
 
   const tagButton = screen.getByText('Tag1');
 

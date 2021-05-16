@@ -2,13 +2,7 @@ import React from 'react';
 import { Box, Text } from '../index';
 import styled from 'styled-components/macro';
 
-const ProductCard = ({
-  addButtonClick,
-  product = {
-    price,
-    name,
-  },
-}) => {
+const ProductCard = ({ addButtonClick, product }) => {
   return (
     <Box
       display="flex"
@@ -23,12 +17,12 @@ const ProductCard = ({
       </Box>
       <Box mt="8px">
         <Text variant="boldBody" color="secondary">
-          {product.price}
+          {product?.price}
         </Text>
       </Box>
       <Box textAlign="left">
         <Text variant="body" color="primary">
-          {product.name}
+          {product?.name}
         </Text>
       </Box>
       <Box

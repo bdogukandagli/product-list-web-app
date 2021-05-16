@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Text, Checkbox } from '../index';
 import styled from 'styled-components/macro';
 
@@ -16,6 +16,7 @@ const StyledInput = styled.input`
 `;
 
 const CheckboxCard = ({ cardTitle, options, selectedFilters, setSelectedFilters }) => {
+  const [searchText, setSearchText] = useState('');
   const handleFilters = (text) => {
     if (selectedFilters.includes(text)) {
       setSelectedFilters(selectedFilters.filter((t) => t != text));
@@ -40,7 +41,11 @@ const CheckboxCard = ({ cardTitle, options, selectedFilters, setSelectedFilters 
         `}
       >
         <Box ml="24px" maxWidth="248px">
-          <StyledInput placeholder={`Search ${cardTitle}`} />
+          <StyledInput
+            data-testid="search-input"
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder={`Search ${cardTitle}`}
+          />
         </Box>
         <Box
           maxHeight="142px"
@@ -50,32 +55,35 @@ const CheckboxCard = ({ cardTitle, options, selectedFilters, setSelectedFilters 
             overflow-y: scroll;
           `}
         >
-          {options.map((option, index) => {
-            return (
-              <Box
-                ml="24px"
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="left"
-                width={1}
-                mt="18px"
-                key={index}
-              >
-                <Box mr="8px">
-                  <Checkbox
-                    isActive={selectedFilters?.includes(option)}
-                    setActive={() => handleFilters(option)}
-                  />
+          {options
+            ?.filter((item) => item.includes(searchText))
+            .map((option, index) => {
+              return (
+                <Box
+                  ml="24px"
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="left"
+                  width={1}
+                  mt="18px"
+                  key={index}
+                >
+                  <Box mr="8px">
+                    <Checkbox
+                      data-testid="checkbox-wrapper"
+                      isActive={selectedFilters?.includes(option)}
+                      setActive={() => handleFilters(option)}
+                    />
+                  </Box>
+                  <Box>
+                    <Text variant="lightBody" color="dark">
+                      {option}
+                    </Text>
+                  </Box>
                 </Box>
-                <Box>
-                  <Text variant="lightBody" color="dark">
-                    {option}
-                  </Text>
-                </Box>
-              </Box>
-            );
-          })}
+              );
+            })}
         </Box>
       </Box>
     </Box>

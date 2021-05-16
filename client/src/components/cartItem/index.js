@@ -2,15 +2,7 @@ import React from 'react';
 import { Box, Text } from '../index';
 import styled from 'styled-components/macro';
 
-const CartItem = ({
-  cartItem = {
-    name: 'Name 1',
-    price: '26,99€',
-    quantity: 2,
-  },
-  incrementButtonClick,
-  decrementButtonClick,
-}) => {
+const CartItem = ({ cartItem, incrementButtonClick, decrementButtonClick }) => {
   return (
     <Box>
       <Box display="flex" width={1} justifyContent="space-between" alignItems="center">

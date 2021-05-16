@@ -4,7 +4,16 @@ import userEvent from '@testing-library/user-event';
 import { ProductCard } from '../index';
 
 test('render component without crash', () => {
-  render(<ProductCard />);
+  render(
+    <ProductCard
+      product={{
+        product: {
+          name: 'test',
+          price: 15,
+        },
+      }}
+    />
+  );
 });
 
 test('addButton functionality', () => {

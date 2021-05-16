@@ -1,15 +1,23 @@
 import React from 'react';
 import { Box, Tag } from '../index';
 
-const TagGroup = ({ tagList, onClick }) => {
+const TagGroup = ({ tagList, selectedTags, setSelectedTags }) => {
+  const handleTags = (text) => {
+    if (selectedTags.includes(text)) {
+      setSelectedTags(selectedTags.filter((t) => t != text));
+    } else {
+      setSelectedTags(selectedTags.concat([text]));
+    }
+  };
+
   return (
     <Box display="flex" width={1}>
-      {tagList.map((tag, index) => {
+      {tagList?.map((tag, index) => {
         return (
           <Tag
             key={index}
-            onClick={() => onClick()}
-            isSelected={index % 2 == 0}
+            onClick={() => handleTags(tag)}
+            isSelected={selectedTags.includes(tag)}
             name={tag}
           />
         );
