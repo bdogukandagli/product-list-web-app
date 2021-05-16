@@ -1,0 +1,16 @@
+{
+  "name": "product-list-web-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-client": "cd ./client && yarn start",
+    "start-server": "cd ./server && yarn start",
+    "start": "yarn start-server && yarn start-client"
+  },
+  "author": {
+    "email": "bdogukandagli@gmail.com",
+    "name": "bdogukandagli"
+  },
+  "license": "ISC"
+}
