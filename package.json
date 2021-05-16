@@ -6,6 +6,7 @@
   "scripts": {
     "install-client": "cd ./client && yarn install",
     "install-server": "cd ./server && yarn install",
+    "test-coverage-client": "cd ./client && yarn test --coverage",
     "start-client": "cd ./client && yarn start",
     "start-server": "cd ./server && yarn start"
   },
